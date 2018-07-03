@@ -3,6 +3,18 @@
   text-align: center;
 }
 
+.container {
+  min-height: 98vh;
+  background: #abcdef;
+}
+
+.wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .addItem {
   outline: none;
   border: none;
@@ -23,13 +35,13 @@
   align-items: center;
   justify-content: center;
   background: #222;
-  width: 100px;
+  width: 200px;
   height: 40px;
   color: #fff;
-  margin: 1px 0;
+  border-top: 1px solid white;
   font-weight: lighter;
   font-size: 18px;
-  transition: transform 0.25s ease;
+  transition: all 0.2s;
 }
 
 .example-appear {

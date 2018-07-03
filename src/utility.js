@@ -25,3 +25,11 @@ export function browser() {
 
   return browserNameWrapper;
 }
+
+export function startAnimation(callback) {
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      callback();
+    });
+  });
+}

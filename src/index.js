@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import ReactCSSTransitionGroup from "react-addons-css-transition-group";
+import { CSSTransition, transit } from "react-css-transition";
 
-import { browser } from "./utility";
+import { browser, startAnimation } from "./utility";
 
 import "./styles.css";
 
@@ -41,7 +41,7 @@ class App extends React.Component {
         let node = el.cloneNode(true);
         document.body.appendChild(node);
         node.style.marginTop = "-99999px";
-        e.dataTransfer.setDragImage(node, e.clientX, 1);
+        e.dataTransfer.setDragImage(node, node.offsetWidth/2, node.offsetHeight/2);
         this.dragImageEl = node;
       }
       e.dataTransfer.setData("text/plain", e.target.id);
@@ -74,9 +74,12 @@ class App extends React.Component {
         (targetIndex < sourceIndex ? 1 : -1) *
           (this.targetEl.clientHeight + 1) +
         "px)";
-      setTimeout(() => {
-        this.setState({ items: newItems });
-      }, 250);
+        startAnimation(() => {
+          this.setState({items: newItems});
+        });
+      // setTimeout(() => {
+      //   this.setState({ items: newItems });
+      // }, 200);
     }
   }
 
@@ -124,20 +127,20 @@ class App extends React.Component {
 
     return (
       <div
+        className="container"
         draggable
         onDragOver={event => event.preventDefault()}
         onDrop={event => this.handleDropTarget(event)}
       >
-        <button className="addItem" onClick={this.handleAdd}>
-          Add Item
-        </button>
-        <ReactCSSTransitionGroup
-          transitionName="example"
-          transitionEnterTimeout={300}
-          transitionLeaveTimeout={300}
-        >
+        <div className="wrapper">
+          <button 
+            className="addItem" 
+            onClick={this.handleAdd}
+          >
+            Add Item
+          </button>
           {items}
-        </ReactCSSTransitionGroup>
+        </div>
       </div>
     );
   }
